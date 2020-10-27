@@ -1,0 +1,365 @@
+<section class="container container-top">
+
+  <header class="profile-wrapper">
+
+    <div class="profile__profile-image-wrapper" data-toggle="modal" data-target="#profileModal">
+
+      <% if current_user.avatar.attached? %>
+        <%= image_tag url_for(current_user.avatar) , title: "change profile photo",class: "profile__profile-image"%>
+        
+        <% else %>
+
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class= "profile__profile-image" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+            <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+          </svg>
+
+      <% end %>    
+    </div>
+
+
+    <div class="profile__profile-details-wrapper">
+      <div class="profile__profile-details">
+        <h1 class="profile__profile-username"><%= current_user.username %></h1>
+        <a href="./edit.html" class="profile__profile-edit">Edit Profile</a>
+        <span class="instaIcons spriteSettings"></span>
+      </div>
+
+      <div class="profile__profile-follower-wrapper">
+
+        <div class="profile__profile-follow">
+
+          <span class="profile-count">
+
+            <%= current_user.posts.count %>
+
+          </span>
+
+          <span> posts</span>
+
+        </div>
+
+        <div class="profile__profile-follow" data-toggle="modal" data-target="#followerusers">
+
+          <span class="profile-count">
+
+            <%= current_user.followers.count %>
+
+          </span>
+
+          <span> followers</span>
+
+        </div>
+         
+        <div class="profile__profile-follow" data-toggle="modal" data-target="#followingusers">
+
+          <span class="profile-count">
+
+            <%= current_user.followings.count %>
+
+          </span>
+
+          <span> following</span>
+
+        </div> 
+          
+      </div>
+
+      <div class="profile__profile-desc-wrapper">
+        <h1 class="profile__profile-name">Cavdy</h1>
+        <span class="profile__profile-desc"
+          >Lorem ipsum dolor sit, amet consectetur</span
+        >
+        <a class="profile__profile-url" href="#">github.com/cavdy</a>
+      </div>
+
+    </div>  
+
+    
+  </header>
+
+    <div class = "show_post">
+      <% @posts.each do |post| %>
+
+        <div class = "user_post" data-toggle="modal" data-target="#full_post" data-post-id="<%= post.id %>" >
+          <%= image_tag url_for(post.image),height: "200", width:  "300" ,class: "post_image" %>
+        </div>
+
+      <% end %>
+    </div>
+
+
+  <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">change profile photo</h5></br>
+            
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <%= form_tag profile_image_path, multipart: true do %>
+              <%= file_field_tag "avatar" %>
+              <span class="modal-footer">
+              <%= submit_tag "change profile",class: "btn btn-primary" %>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </span>
+            <% end %>
+          </div>
+          
+        </div>
+      </div>
+  </div>
+
+
+  <div class="modal fade" id="followerusers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Followers</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <% @current_user_followers.each do |follower_user|%>
+
+              <div>
+
+                <%= link_to (users_profile_path(follower_user)),class: "find_users" do %>
+    
+                  <% if follower_user.avatar.attached? %>
+                    <span class = "modal_profile"><%= image_tag url_for(follower_user.avatar),class: "modal_image" %></span>
+                  <% else %>
+
+                      <svg width="1em" height="1em" viewBox="0 0 16 16" class= "modal_profile" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                        <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                      </svg>
+                    
+                  <% end %>
+
+                  <span><%= follower_user.username %></span>
+
+                <% end %>
+
+                <div class = "modal_follow">
+                  <% if @current_user_followings.include?(follower_user) %>
+
+                    <%= link_to "unfollow",unfollow_path(following_id: follower_user.id),class: "btn btn-outline-secondary unfollow_ajax" %>
+
+                  <% else %>
+                      
+                    <%= link_to "follow",follow_path(following_id: follower_user.id),class: "btn btn-primary follow_ajax" %>
+                      
+                  <% end %>
+
+                </div>
+
+              </div>
+
+            <% end %>
+
+          </div>
+
+        </div>
+      </div>
+  </div>
+
+
+  <div class="modal fade" id="followingusers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Followings</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <% @current_user_followings.each do |following_user|%>
+
+              <div>
+                <%= link_to (users_profile_path(following_user)),class: "find_users" do %>
+                
+                  <% if following_user.avatar.attached? %>
+
+                    <span class = "modal_profile"><%= image_tag url_for(following_user.avatar),class: "modal_image" %></span>
+                  <% else %>
+                
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class = "modal_profile" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                      <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                      <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                    </svg>
+                    
+                  <% end %>
+
+                  <span><%= following_user.username %></span>
+
+                <% end %>
+
+              
+
+                <div class = "modal_follow">    
+                  <%= link_to "unfollow",unfollow_path(following_id: following_user.id) ,class: "btn btn-outline-secondary unfollow_ajax" %>
+                </div>
+
+              </div>
+            
+            <% end %>
+            
+          </div>
+          
+        </div>
+      </div>
+  </div>
+
+
+  <div class="modal fade" id="full_post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        
+          <div id="post_image">
+            
+          </div>
+
+
+          <div class = "comments">
+
+            <div class = "caption_section">
+              
+            </div>
+
+            <div class = "comment_section">
+
+              
+            </div>
+
+            <%= form_for Comment.new do |comment| %>
+
+              <%= comment.text_field :text ,placeholder: "Add a comment..." ,class: "comment_field"%>
+              <%= comment.hidden_field :post_id, :value => "" %>
+            <% end %>
+
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    $("#full_post").on('show.bs.modal',function (event) {
+
+      var post = $(event.relatedTarget) // post that triggered the modal
+      var post_id = post.data('post-id') // Extract info from data-* attributes
+      var modal = $(this)
+
+
+      $.ajax({
+        url: "/post/" + post_id,
+        success: function(data) {
+
+          updateModal(modal,data,post_id);
+
+        }
+
+      });
+
+    });
+
+
+    function  updateModal(modal,data,post_id) {
+      image = "<img src = '" + data.image_url + "'  width='500' height='400' >"
+
+      post_user = "<img src='" + data.user.avatar_url + "' class = comment_profile >" + data.user.username + data.caption
+
+      $("#comment_post_id").val(post_id);
+
+      other_user_comments = ""
+     for (i = 0; i < data.comments.length; i++) {
+
+        other_user_comments += "<div>"+ "<img src='" + data.comments[i].user.avatar_url + "' class = comment_profile >" + data.comments[i].user.username + data.comments[i].text + "</div>"
+      }
+
+      $('#post_image').html(image)
+      $('.caption_section').html(post_user)
+      $('.comment_section').html(other_user_comments) 
+    }
+
+
+
+
+    $("body").on("click", ".follow_ajax", function(event){
+      event.preventDefault();
+      var follow = $(event.target);
+
+      $.ajax({
+
+        url: follow.attr('href'),
+        
+        method: "POST",
+        dataType: "json",
+        
+        success: function(followdata){
+          if(followdata.success === true) {
+            var follow_parent = $(follow).parent("div");
+            $(follow).destroy;
+
+            var unfollow_link = "<a href= '" + "/unfollow?following_id=" + followdata.following_id + "' class= 'btn btn-outline-secondary unfollow_ajax' >" + "unfollow" + "</a>"
+            $(follow_parent).html(unfollow_link)
+          };
+
+        }
+      });
+      
+    });
+
+
+
+    $("body").on("click", ".unfollow_ajax", function(event){
+      event.preventDefault();
+      var unfollow = $(event.target);
+
+      $.ajax({
+        url: unfollow.attr('href'),
+        method: "POST",
+        dataType: "json",
+
+        success: function(unfollowdata) {
+          if(unfollowdata.success === true) {
+            var unfollow_parent = $(unfollow).parent("div");
+            $(unfollow).destroy;
+
+            var follow_link = "<a href= '" + "/follow?following_id=" + unfollowdata.following_id + "' class= 'btn btn-primary follow_ajax' >" + "follow" + "</a>"
+
+            
+            $(unfollow_parent).html(follow_link)
+          };           
+        }
+      });
+      
+    });
+  </script>
+
+</section>

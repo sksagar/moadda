@@ -1,0 +1,79 @@
+.forgot {
+  float: right;
+  margin: 10px 8px 10px 0px;
+}
+
+.modal_profile {
+  height: 50px;
+  width: 50px;
+  display: inline-block;
+}
+.modal_image {
+
+  border-radius: 100%;
+  image-rendering: pixelated;
+  height: 100%;
+  width: 100%;
+}
+.profile__profile-follow {
+  cursor: pointer;
+}
+.find_users{
+  margin-bottom: 15px;
+  display: inline-block;
+  color: black;
+}
+
+.modal_follow {
+  float: right;
+}
+
+
+.user_post {
+  
+  display: inline-block;
+}
+
+
+.show_post {
+  margin-top: 60px;
+}
+
+.post_image {
+  margin-top: 16px;
+  margin-left: 8px;
+}
+
+
+.comments {
+  float: right;
+  width: 250px;
+}
+
+
+.modal-dialog {
+  max-width: 810px;
+}
+
+
+
+.comment_profile {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}
+
+#post_image {
+  width: 500px;
+  display: inline-block;
+}
+
+.post_svg {
+  height: 23px;
+  width: 36px;
+  margin-left: 20px;
+}
+
+.btn-outline-secondary{
+  color: black;
+}
