@@ -78,7 +78,14 @@
       other_user_comments = ""
       for (i = 0; i < data.comments.length; i++) {
 
-        other_user_comments += "<div class = 'comment_div'>"+ "<img src='" + data.comments[i].user.avatar_url + "' class = comment_profile >" + data.comments[i].user.username + data.comments[i].text + "</div>"
+        other_user_comments += "<div class = 'comment_div'>"
+        if (data.comments[i].user.avatar_url) {
+         other_user_comments += "<img src='" + data.comments[i].user.avatar_url + "' class = comment_profile >" }
+        else {
+          other_user_comments += "<svg viewBox='0 0 16 16' class= 'comment_profile' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>"+"<path d='M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z'/>"+"<path fill-rule='evenodd' d='M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'/>"+"<path fill-rule='evenodd' d='M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z'/>"+"</svg>"
+        }
+
+        other_user_comments += data.comments[i].user.username + data.comments[i].text + "</div>"
       }
 
       
@@ -96,7 +103,7 @@
       var comment_form = $(comment_post_btn).parent(".all_modal_comment")
       event.preventDefault();
      
-      console.log("sagar")
+      
       $.ajax({
         url: "/comments",
         method: "POST",
@@ -105,7 +112,13 @@
         success: function(comment_data){
           if(comment_data.success === true) {
             comment_text = ""
-            comment_text += "<div class = 'comment_div' >"+ "<img src= '"+ comment_data.comment.user.avatar_url +"' class = comment_profile >" + comment_data.comment.user.username + comment_data.comment.text + "</div>"
+            comment_text += "<div class = 'comment_div' >"
+            if (comment_data.comment.user.avatar_url) {
+              comment_text += "<img src= '"+ comment_data.comment.user.avatar_url +"' class = comment_profile >" }
+            else {
+              comment_text += "<svg viewBox='0 0 16 16' class= 'comment_profile' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>"+"<path d='M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z'/>"+"<path fill-rule='evenodd' d='M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'/>"+"<path fill-rule='evenodd' d='M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z'/>"+"</svg>"
+            }
+            comment_text += comment_data.comment.user.username + comment_data.comment.text + "</div>"
             $(".comment_section").append(comment_text);
             $(comment_form).children(".add_modal_comment").val("");
           }
