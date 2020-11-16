@@ -17,19 +17,20 @@
 }
 
 .post-image-wrapper {
-  background-image: linear-gradient(to right, #f99949, #c62e90);
+  
   height: 42px;
-  width: 42px;
+  
   border-radius: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2px;
-  margin-right: 10px;
+  
 }
 
 .post-image {
-  width: 100%;
+  color: black;
+  width: 40px;
   height: 100%;
   border-radius: 100%;
   image-rendering: pixelated;
@@ -95,6 +96,7 @@
 
 .post-comment-author {
   font-weight: 700;
+  color: black;
 }
 
 .post-created {

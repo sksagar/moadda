@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
     @comments.user_id = current_user.id
 
     if @comments.save
-      redirect_to instagram_profile_path
+      render json: {success: true,comment: @comments.as_json(include: :user)}
     else
       render root_url 
     end

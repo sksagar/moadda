@@ -12,5 +12,8 @@ Rails.application.routes.draw do
   post 'comments',to: "comments#create"
 
   get "post/:id", to: "posts#find_post"
+
+  get "home", to: "home#index"
+  get "search_user", to: "search#users"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

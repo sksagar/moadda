@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  
+  validates :username, presence: true , format: {with: /\A[a-z._]+[0-9]*\Z/}, length: {in: 5..20}
 
   has_one_attached :avatar
   has_many :posts

@@ -82,7 +82,7 @@
     <div class = "show_post">
       <% @posts.each do |post| %>
 
-        <div class = "user_post" data-toggle="modal" data-target="#full_post" data-post-id="<%= post.id %>" >
+        <div class = "user_post" data-toggle="modal" data-target="#full_user_post" data-post-id="<%= post.id %>" >
           <%= image_tag url_for(post.image),height: "200", width:  "300" ,class: "post_image" %>
         </div>
 
@@ -222,93 +222,8 @@
   </div>
 
 
-  <div class="modal fade" id="full_post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-        
-          <div id="post_image">
-            
-          </div>
-
-
-          <div class = "comments">
-
-            <div class = "caption_section">
-              
-            </div>
-
-            <div class = "comment_section">
-
-              
-            </div>
-
-            <%= form_for Comment.new do |comment| %>
-
-              <%= comment.text_field :text ,placeholder: "Add a comment..." ,class: "comment_field"%>
-              <%= comment.hidden_field :post_id, :value => "" %>
-            <% end %>
-
-        </div>
-
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
   <script>
-    $("#full_post").on('show.bs.modal',function (event) {
-
-      var post = $(event.relatedTarget) // post that triggered the modal
-      var post_id = post.data('post-id') // Extract info from data-* attributes
-      var modal = $(this)
-
-
-      $.ajax({
-        url: "/post/" + post_id,
-        success: function(data) {
-
-          updateModal(modal,data,post_id);
-
-        }
-
-      });
-
-    });
-
-
-    function  updateModal(modal,data,post_id) {
-      image = "<img src = '" + data.image_url + "'  width='500' height='400' >"
-
-      post_user = "<img src='" + data.user.avatar_url + "' class = comment_profile >" + data.user.username + data.caption
-
-      $("#comment_post_id").val(post_id);
-
-      other_user_comments = ""
-     for (i = 0; i < data.comments.length; i++) {
-
-        other_user_comments += "<div>"+ "<img src='" + data.comments[i].user.avatar_url + "' class = comment_profile >" + data.comments[i].user.username + data.comments[i].text + "</div>"
-      }
-
-      $('#post_image').html(image)
-      $('.caption_section').html(post_user)
-      $('.comment_section').html(other_user_comments) 
-    }
-
-
-
+    
 
     $("body").on("click", ".follow_ajax", function(event){
       event.preventDefault();
@@ -361,5 +276,6 @@
       
     });
   </script>
+  <%= render partial: "shared/post_modal" %>
 
 </section>
