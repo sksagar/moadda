@@ -16,7 +16,7 @@ class PostsController < ApplicationController
 
   def find_post
     @post = Post.includes(comments: :user).find(params[:id])
-    render json: @post.as_json(include: { comments: { include: :user},user: []  })
+    render json: @post.as_json(include: { comments: { include: :user},user: {except: :avatar}  })
   end
 
   private

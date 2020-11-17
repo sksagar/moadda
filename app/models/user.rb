@@ -22,7 +22,7 @@ class User < ApplicationRecord
   def serializable_hash(options = {})
     if self.avatar.attached?
       avatar_url = Rails.application.routes.url_helpers.rails_blob_path(self.avatar, only_path: true)
-      super({}).tap do |hash|
+      super(options).tap do |hash|
         hash["avatar_url"] = avatar_url
       end
     else
