@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
     @comments.user_id = current_user.id
 
     if @comments.save
-      render json: {success: true,comment: @comments.as_json(include: :user)}
+      render json: {success: true,comment: @comments.as_json(include: {user: {except: :avatar}} )}
     else
       render root_url 
     end
