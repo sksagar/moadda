@@ -12,10 +12,10 @@
   <body>
     <nav id="nav" class="nav">
       <div class="container d-flex align-items-center justify-content-between">
-        <a href="./index.html" class="logo-link">
+        <%= link_to (home_path) do %> 
           <%= image_tag "moadda.png",class: "nav_image" %>
-            
-        </a>
+        <% end %>   
+        
 
         <%= form_tag search_user_path, method: :get do %>
           <%= search_field_tag :search , params[:search], placeholder: "Search",autocapitalize: "none", class: "search" %>

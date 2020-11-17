@@ -1,15 +1,7 @@
 <div class="modal fade" id="full_user_post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog full_modal" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <div class = "header_username">
-          
-        </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      
       <div class="modal-body post_body">
         
         <div id="post_image">
@@ -67,10 +59,16 @@
 
     function updateModal(modal, data,post_id) {
       image = "<img src='" + data.image_url + "' width='512' height='400'>"
+      post_user = ""
+      if (data.user.avatar_url) {
+        post_user += "<img src='" + data.user.avatar_url + "' class = comment_profile >"
+      }
+      else {
+          post_user += "<svg viewBox='0 0 16 16' class= 'comment_profile' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>"+"<path d='M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z'/>"+"<path fill-rule='evenodd' d='M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'/>"+"<path fill-rule='evenodd' d='M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z'/>"+"</svg>"
+      }
+      post_user += "<a href = '/users_profile/" + data.user.id + "'"+"class = 'post-comment-author'"+ ">" + data.user.username + "</a>"+ "<span class = 'comments_text'>" + data.caption + "</span>"
 
-      post_user = "<img src='" + data.user.avatar_url + "' class = comment_profile >" + data.user.username + data.caption
-
-      post_user_name = "<img src='" + data.user.avatar_url + "' class = 'comment_profile'>" + data.user.username
+      
       
       $("#comment_post_id").val(post_id);
      
@@ -85,15 +83,16 @@
           other_user_comments += "<svg viewBox='0 0 16 16' class= 'comment_profile' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>"+"<path d='M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z'/>"+"<path fill-rule='evenodd' d='M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'/>"+"<path fill-rule='evenodd' d='M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z'/>"+"</svg>"
         }
 
-        other_user_comments += data.comments[i].user.username + data.comments[i].text + "</div>"
+        other_user_comments += "<a href = '/users_profile/" + data.comments[i].user.id + "'"+"class = 'post-comment-author'"+ ">" + data.comments[i].user.username +"</a>"+ "<span class = 'comments_text'>"+ data.comments[i].text + "</span>"+ "</div>"
+        
       }
-
+"<span class = 'comments_text'>" + 
       
       
       $('#post_image').html(image)
       $('.caption_section').html(post_user)
       $('.comment_section').html(other_user_comments)
-      $(".header_username").html(post_user_name) 
+       
     }
 
 
@@ -118,7 +117,7 @@
             else {
               comment_text += "<svg viewBox='0 0 16 16' class= 'comment_profile' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>"+"<path d='M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z'/>"+"<path fill-rule='evenodd' d='M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'/>"+"<path fill-rule='evenodd' d='M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z'/>"+"</svg>"
             }
-            comment_text += comment_data.comment.user.username + comment_data.comment.text + "</div>"
+            comment_text += "<a href = '/users_profile/" + comment_data.comment.user.id + "'"+"class = 'post-comment-author'"+ ">" + comment_data.comment.user.username + "</a>"+ "<span class = 'comments_text'>" + comment_data.comment.text + "</span>"+ "</div>"
             $(".comment_section").append(comment_text);
             $(comment_form).children(".add_modal_comment").val("");
           }
