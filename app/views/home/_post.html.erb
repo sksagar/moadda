@@ -80,7 +80,7 @@
     </svg>
   </section>
   <section class="post-comments-wrapper">
-    <div class="post-likes">207 likes</div>
+    <!--div class="post-likes">207 likes</div-->
     <div class="post-comment">
       <%= link_to(users_profile_path(home_post.user.id),class: "post-comment-author") do %> 
       
@@ -89,9 +89,8 @@
       <%= home_post.caption %>
       
     </div>
-    <a href="./comments.html" class="view-all-comments"
-      >View all comments</a
-    >
+    <span class = "view-all-comments" data-toggle="modal" data-target="#full_user_post" data-post-id="<%= home_post.id %>" >View all comments</span>
+
     <div class="post-comment post_two_comment">
       
       <% home_post.comments.take(2).each do|comments| %>
