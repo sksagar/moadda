@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
 
-  LIMITS_PER_PAGE = 4
+  LIMITS_PER_PAGE = 10
 
   def index
     @posts = current_user.timeline_posts.includes(:user,comments: [:user])
