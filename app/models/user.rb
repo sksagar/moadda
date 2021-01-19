@@ -19,6 +19,7 @@ class User < ApplicationRecord
 
   has_many :timeline_posts, through: :following_users,source: :posts
 
+
   def serializable_hash(options = {})
     if self.avatar.attached?
       avatar_url = Rails.application.routes.url_helpers.rails_blob_path(self.avatar, only_path: true)

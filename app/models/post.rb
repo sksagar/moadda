@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   has_many :comments
+  has_many :likes
   has_one_attached :image
 
 
@@ -9,4 +10,8 @@ class Post < ApplicationRecord
     super(options).merge({image_url: image})
   end
 
+  
+  def liked(user_id)
+    Like.where(user_id: user_id,post_id: self.id).exists?
+  end
 end

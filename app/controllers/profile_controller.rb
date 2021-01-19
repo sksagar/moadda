@@ -6,7 +6,7 @@ class ProfileController < ApplicationController
     @current_user_followings = current_user.following_users
     @posts = current_user.posts
 
-    @all_comments = Post.first.comments.includes(:user) 
+    #@all_comments = Post.first.comments.includes(:user) 
   end
 
   def image

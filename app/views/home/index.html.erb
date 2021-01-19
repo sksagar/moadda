@@ -67,6 +67,40 @@
           })
         }
       })
+
+
+      $("body").on("click",".like",function(event){
+        var like_btn = $(event.target);
+        var post_id = like_btn.data("post-id");
+        $.ajax({
+          url: "/likes",
+          data: {post_id: post_id},
+          method: "POST",
+          
+          success: function(like_data) {
+            if(like_data.success === true) {
+              $( like_btn ).removeClass( "like" ).addClass( "liked" )
+            }
+          }
+        })
+      })
+
+
+      $("body").on("click",".liked",function(event){
+        var unlike_btn = $(event.target);
+        var post_id = unlike_btn.data("post-id");
+        $.ajax({
+          url: "/unlike",
+          data: {post_id: post_id},
+          method: "POST",
+
+          success: function(unlike) {
+            if(unlike.success === true) {
+              $(unlike_btn).addClass("like").removeClass("liked")
+            }
+          }
+        })
+      })
     </script>
   </section>
 

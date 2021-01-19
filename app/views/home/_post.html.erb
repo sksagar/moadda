@@ -32,11 +32,12 @@
   <section class="post-options-wrapper">
     <svg
       aria-label="Activity Feed"
-      class="mr-4"
+      class= "<%= home_post.liked(current_user.id).present? ? "mr-4 liked" : "mr-4 like" %>"
       fill="#262626"
       height="24"
       viewBox="0 0 48 48"
       width="24"
+      data-post-id = "<%= home_post.id %>"
     >
       <path
         clip-rule="evenodd"

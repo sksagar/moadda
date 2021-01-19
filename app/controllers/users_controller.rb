@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @followings = @user.following_users
     @current_user_followings = current_user.following_users
     @other_user_posts = @user.posts
-    @all_comments = Post.first.comments.includes(:user)
+    #@all_comments = Post.first.comments.includes(:user)
   end
 
    def follow
