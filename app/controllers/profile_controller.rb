@@ -11,9 +11,9 @@ class ProfileController < ApplicationController
 
   def image
     if current_user.update(avatar: params[:avatar])
-      redirect_to instagram_profile_path
+      redirect_to instagram_profile_path(current_user.username)
     else
-      redirect_to instagram_profile_path
+      redirect_to instagram_profile_path(current_user.username)
     end
   end
 

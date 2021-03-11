@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root "home#index"
-  get 'instagram/profile',to: "profile#show"
+  get 'moadda/:username',to: "profile#show",as: "instagram_profile"
   post 'profile_image',to: "profile#image"
   post 'photo_post',to: "posts#create_post"
  

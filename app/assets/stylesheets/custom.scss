@@ -122,17 +122,16 @@
 }
 
 .search_image {
-  width: 80px;
-  height: 80px;
+  width: 69px;
+  height: 69px;
   border-radius: 100px;
   image-rendering: pixelated;
-  margin-top: 8px;
+ 
 }
-
 
 .search_section {
   
-  margin-left: 323px;
+  margin-left: 70px;
 
 }
 
@@ -142,7 +141,18 @@
 }
 
 .search_username {
-  font-size: 26px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 7px;
+}
+
+.search_profile {
+  margin-top: 25px;
+}
+.search_follow_link {
+  float: right;
+  margin-right: 280px;
+  margin-top: 15px;
 }
 
 .header_username{
@@ -168,4 +178,57 @@ cursor: pointer;
 
 .liked{
   fill: red;
+}
+
+.settings {
+  margin-left: 10px;
+}
+
+.edit-profile-btn {
+  cursor: pointer;
+}
+
+.edit-wrapper {
+  width: 730px;
+}
+
+.update_user {
+  float: right;
+  margin-right: 74px;
+}
+
+.update_account {
+  float: right;
+}
+
+.field {
+  margin-left: 100px;
+  font-weight: 700;
+  margin-top: 30px;
+}
+
+.edit-width {
+  width: 169px;
+}
+
+.update_account {
+  float: right;
+}
+
+.update_field {
+  width: 100%;
+}
+
+.elete {
+  float: right;
+}
+
+.home_page{
+  height: 24px;
+  width: 24px;
+  color: black;
+}
+
+.settings {
+  color: black;
 }

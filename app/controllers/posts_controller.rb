@@ -7,7 +7,7 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
 
     if @post.save
-      redirect_to instagram_profile_path
+      redirect_to instagram_profile_path(current_user.username)
     else
       render profile_image_path
     end

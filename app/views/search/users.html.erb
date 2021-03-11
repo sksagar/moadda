@@ -1,8 +1,8 @@
 <section class="container container-top">
   <div class = "search_section">
     <% @users.each do |user| %>
-      <%= link_to (users_profile_path(user)),class: "search_user" do %>
-        <div>
+      <div class = "search_profile">
+        <%= link_to (users_profile_path(user)),class: "search_user" do %>
           <% if user.avatar.attached? %>
             <%= image_tag url_for(user.avatar),class: "search_image" %>
           <% else %>
@@ -14,8 +14,73 @@
           <% end %>
 
           <span class = search_username><%= user.username %></span>
+        <% end %>
+        <div class = "search_follow_link">
+          <% if @current_user_followings.include?(user) %>
+
+            <%= link_to "unfollow",unfollow_path(following_id: user.id),class: "search_user_unfollow" %>
+
+          <% else %>
+
+            <%= link_to "follow",follow_path(following_id: user.id),class: "search_user_follow" %>
+
+          <% end %>
         </div>
-      <% end %>
+      </div>
+      
     <% end %>
   </div>
+
+
+  <script>
+    $("body").on("click", ".search_user_follow", function(event){
+      event.preventDefault();
+      var follow = $(event.target);
+
+      $.ajax({
+
+        url: follow.attr('href'),
+        
+        method: "POST",
+        dataType: "json",
+        
+        success: function(followdata){
+          if(followdata.success === true) {
+            var follow_parent = $(follow).parent("div");
+            $(follow).destroy;
+
+            var unfollow_link = "<a href= '" + "/unfollow?following_id=" + followdata.following_id + "' class= 'search_user_unfollow' >" + "unfollow" + "</a>"
+            $(follow_parent).html(unfollow_link)
+          }
+
+        }
+      })
+      
+    })
+
+
+    $("body").on("click", ".search_user_unfollow", function(event){
+      event.preventDefault();
+      var unfollow = $(event.target);
+
+      $.ajax({
+        url: unfollow.attr('href'),
+        method: "POST",
+        dataType: "json",
+
+        success: function(unfollowdata) {
+          if(unfollowdata.success === true) {
+            var unfollow_parent = $(unfollow).parent("div");
+            $(unfollow).destroy;
+
+            var follow_link = "<a href= '" + "/follow?following_id=" + unfollowdata.following_id + "' class= 'search_user_follow' >" + "follow" + "</a>"
+
+            
+            $(unfollow_parent).html(follow_link)
+          }           
+        }
+      })
+      
+    })
+  </script>
 </section>
