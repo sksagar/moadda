@@ -81,7 +81,9 @@
     </svg>
   </section>
   <section class="post-comments-wrapper">
-    <!--div class="post-likes">207 likes</div-->
+    <div class="post-likes">
+      <%= home_post.likes.count %>  likes
+    </div>
     <div class="post-comment">
       <%= link_to(users_profile_path(home_post.user.id),class: "post-comment-author") do %> 
       

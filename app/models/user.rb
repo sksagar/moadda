@@ -6,15 +6,15 @@ class User < ApplicationRecord
   
   validates :username, presence: true , format: {with: /\A[a-z._]+[0-9]*\Z/}, length: {in: 3..25}
 
-  has_one_attached :avatar
-  has_many :posts
-  has_many :comments
+  has_one_attached :avatar, dependent: :destroy
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
-  has_many :followings, class_name: "Follow", foreign_key: :follower_id
+  has_many :followings, class_name: "Follow", foreign_key: :follower_id, dependent: :destroy
   has_many :following_users, through: :followings
 
 
-  has_many :followers, class_name: "Follow", foreign_key: :following_id
+  has_many :followers, class_name: "Follow", foreign_key: :following_id, dependent: :destroy
   has_many :follower_users, through: :followers
 
   has_many :timeline_posts, through: :following_users,source: :posts
