@@ -64,6 +64,7 @@
 
 .caption_section{
   margin-top: 18px;
+  border-bottom: 1px solid black;
 }
 
 .comment_div {
@@ -83,7 +84,15 @@
 .post_svg {
   height: 23px;
   width: 36px;
-  margin-left: 20px;
+  margin-left: 15px;
+
+}
+
+.svg_profile {
+  height: 24px;
+  width: 25px;
+  border-radius: 100%;
+  color: black;
 }
 
 .btn-outline-secondary{
@@ -230,5 +239,15 @@ cursor: pointer;
 }
 
 .settings {
+  margin-right: 12px;
   color: black;
+}
+
+.all_svg {
+  display: inherit;
+}
+
+.nav_logout {
+  font-weight: 600;
+  
 }

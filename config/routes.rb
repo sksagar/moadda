@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   get "post/:id", to: "posts#find_post"
 
-  get "home", to: "home#index"
+  get "", to: "home#index",as: "home"
   get "search_user", to: "search#users"
 
   post "likes",to: "likes#create_like"

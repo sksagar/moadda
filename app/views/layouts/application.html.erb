@@ -18,11 +18,11 @@
         
 
         <%= form_tag search_user_path, method: :get do %>
-          <%= search_field_tag :search , params[:search], placeholder: "Search",autocapitalize: "none", class: "search" %>
+          <%= search_field_tag :search , params[:search], placeholder: "Search atleast 3 character",autocapitalize: "none", class: "search" %>
         <% end %>
 
         
-        <div>
+        <div class = "all_svg">
 
           <%= link_to (home_path) do %>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="navbar-icon home_page" viewBox="0 0 16 16">
@@ -30,34 +30,18 @@
             </svg>
           <% end %>
 
-          <svg
-            aria-label="Activity Feed"
-            class="navbar-icon"
-            fill="#262626"
-            height="24"
-            viewBox="0 0 48 48"
-            width="24"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M34.3 3.5C27.2 3.5 24 8.8 24 8.8s-3.2-5.3-10.3-5.3C6.4 3.5.5 9.9.5 17.8s6.1 12.4 12.2 17.8c9.2 8.2 9.8 8.9 11.3 8.9s2.1-.7 11.3-8.9c6.2-5.5 12.2-10 12.2-17.8 0-7.9-5.9-14.3-13.2-14.3zm-1 29.8c-5.4 4.8-8.3 7.5-9.3 8.1-1-.7-4.6-3.9-9.3-8.1-5.5-4.9-11.2-9-11.2-15.6 0-6.2 4.6-11.3 10.2-11.3 4.1 0 6.3 2 7.9 4.2 3.6 5.1 1.2 5.1 4.8 0 1.6-2.2 3.8-4.2 7.9-4.2 5.6 0 10.2 5.1 10.2 11.3 0 6.7-5.7 10.8-11.2 15.6z"
-              fill-rule="evenodd"
-            ></path>
-          </svg>
+    
           <%= link_to (instagram_profile_path(current_user.username)) do %>
-            <svg
-              aria-label="Profile"
-              class= ""
-              fill="#262626"
-              height="24"
-              viewBox="0 0 48 48"
-              width="24"
-            >
-              <path
-                d="M24 27c-7.1 0-12.9-5.8-12.9-12.9s5.8-13 12.9-13c7.1 0 12.9 5.8 12.9 12.9S31.1 27 24 27zm0-22.9c-5.5 0-9.9 4.5-9.9 9.9s4.4 10 9.9 10 9.9-4.5 9.9-9.9-4.4-10-9.9-10zm20 42.8c-.8 0-1.5-.7-1.5-1.5V42c0-5-4-9-9-9h-19c-5 0-9 4-9 9v3.4c0 .8-.7 1.5-1.5 1.5s-1.5-.7-1.5-1.5V42c0-6.6 5.4-12 12-12h19c6.6 0 12 5.4 12 12v3.4c0 .8-.7 1.5-1.5 1.5z"
-              ></path>
-              <title>Profile</title>
-            </svg>
+            <% if current_user.avatar.attached? %>
+              <%= image_tag url_for(current_user.avatar),class: "svg_profile" %>
+            <% else %>
+
+              <svg viewBox="0 0 16 16" class= "svg_profile" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+              </svg>
+            <% end %>
           <% end %>
 
           <svg width="1em" height="1em" viewBox="0 0 16 16" class="post_svg" data-toggle="modal" data-target="#exampleModal" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -72,9 +56,11 @@
               <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
             </svg>
           <% end %>
-
-          <%= link_to "log out",destroy_user_session_path,method: :delete %>
-
+          <div class = "nav_logout">
+            
+            <%= link_to "log out",destroy_user_session_path,method: :delete %>
+    
+          </div>
         </div>
       </div>
     </nav>
