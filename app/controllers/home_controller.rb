@@ -8,7 +8,7 @@ class HomeController < ApplicationController
     @page = (params[:page] || 1).to_i
     @rows = @posts.count
     @total_pages = (@rows / LIMITS_PER_PAGE).ceil
-    @posts = @posts.offset((@page - 1) * LIMITS_PER_PAGE).limit(LIMITS_PER_PAGE)
+    @posts = @posts.order(created_at: :desc).offset((@page - 1) * LIMITS_PER_PAGE).limit(LIMITS_PER_PAGE)
 
     if request.format.json?
       html_str = ''
